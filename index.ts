@@ -4,13 +4,12 @@ import { Readable } from 'stream'
 const byline = require('byline')
 
 /**
- * Creates an stream of JSON tracks from an iTunes Library XML file. 
+ * Creates an stream of JSON tracks from an iTunes Library XML file.
  *
  * @param  String
  * @return ReadableStream of JSON objects
  */
-
-export function getItunesTracks(librarypath: string) {
+export function getItunesTracks(librarypath: fs.PathLike) {
 
 	let libraryID: string
 	let trackObj: any = {}
@@ -19,19 +18,19 @@ export function getItunesTracks(librarypath: string) {
 	let trackCount: number = 0
 
 	let streamIn: any
-	let streamOut: any = new Readable
-	streamOut._read = function() { /* needed this stub to fix init issues */ }
+	let streamOut: Readable = new Readable
+	streamOut._read = function () { /* needed this stub to fix init issues */ }
 
 
 	streamIn = fs.createReadStream(librarypath)
 	streamIn.on('error', () => streamOut.emit("error", 'The file you selected does not exist'))
 	streamIn = byline.createStream(streamIn)
-	
+
 
 
 
 	/*
-	if (!module.exports.validPath(librarypath)) { 
+	if (!module.exports.validPath(librarypath)) {
 		streamOut.emit("error", 'Not a valid XML file')
 	}
 	*/
@@ -69,7 +68,7 @@ export function getItunesTracks(librarypath: string) {
 
 	})
 
-	streamIn.on('error', (err) => {
+	streamIn.on('error', (err: any) => {
 		streamOut.emit("error", 'Error parsing iTunes XML')
 	})
 
@@ -81,12 +80,12 @@ export function getItunesTracks(librarypath: string) {
 
 
 /**
- * Validates that the file is an itunes XML file. 
+ * Validates that the file is an itunes XML file.
  *
  * @param  string
  * @return Boolean
  */
-export function validPath(librarypath) {
+export function validPath(librarypath: any) {
 	let extension = path.extname(librarypath)
 	if (extension != '.xml') return false
 	return true
@@ -97,12 +96,12 @@ export function validPath(librarypath) {
 
 
 /**
- * Ensures we have a music track and not a video or other non-music item. 
+ * Ensures we have a music track and not a video or other non-music item.
  *
  * @param  Object
  * @return Boolean
  */
-export function objectIsMusicTrack(obj) {
+export function objectIsMusicTrack(obj: any) {
 	if (
 		(obj.Name || obj.Artist)
 		&& !obj['Playlist ID']
@@ -120,12 +119,12 @@ export function objectIsMusicTrack(obj) {
 }
 
 /**
- * Creates a simple object with a key/value pair from the current XML line. 
+ * Creates a simple object with a key/value pair from the current XML line.
  *
  * @param  String
  * @return Object
  */
-export function buildProperty(line) {
+export function buildProperty(line: any) {
 	let key = String(line).match("<key>(.*)</key>")
 	let value = String(line).match("<integer>(.*)</integer>")
 	if (!value) value = String(line).match("<date>(.*)</date>")
@@ -135,7 +134,7 @@ export function buildProperty(line) {
 	if (key != null && key.length > 1) k = key[1]
 	let v = ''
 	if (value != null && value.length > 1) v = value[1]
-	let o = {}
+	let o: any = {}
 	o[k] = v
 	return o
 }
