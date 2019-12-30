@@ -1,7 +1,7 @@
 {
-  "name": "@johnpaulvaughan/itunes-music-library-tracks",
-  "version": "1.0.5",
-  "description": "Creates an stream of tracks from an iTunes Library XML file",
+  "name": "@jcbrouwer/itunes-music-library-tracks",
+  "version": "1.0.7",
+  "description": "Creates a stream of tracks from an iTunes Library XML file",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -12,7 +12,7 @@
   "devDependencies": {
     "@types/node": "^6.0.48",
     "chai": "^3.5.0",
-    "mocha": "^3.1.2",
+    "mocha": "^6.2.2",
     "typescript": "^2.0.10"
   },
   "scripts": {
@@ -28,10 +28,10 @@
     "music",
     "tracks"
   ],
-  "author": "John Paul Vaughan <johnpaulvaughan@hotmail.com> (http://johnpaulvaughan.com)",
-  "license": "ISC",
+  "author": "Hans Brouwer <hans@marqt40.com> (https://wavefunk.xyz)",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/johnpaulvaughan/itunes-music-library-tracks/issues"
+    "url": "https://github.com/JCBrouwer/itunes-music-library-tracks/issues"
   },
-  "homepage": "https://github.com/johnpaulvaughan/itunes-music-library-tracks#readme"
+  "homepage": "https://github.com/JCBrouwer/itunes-music-library-tracks#readme"
 }

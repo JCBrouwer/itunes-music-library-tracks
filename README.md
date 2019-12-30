@@ -1,13 +1,15 @@
 # iTunes Music Library Tracks
-This module loops through iTunes Music Library XML and spits out a stream of JSON objects for each track. 
+This module loops through iTunes Music Library XML and spits out a stream of JSON objects for each track.
 
 ## Motivation
-There are similar npm modules that do this, however when trying to utilise them in an electon application they all failed in one way or another. 
+There are similar npm modules that do this, however when trying to utilize them in an electron application they all failed in one way or another.
 I created my module using minimal dependencies so that it works without issue.
+
+This version works with stricter tslinting than versions by @johnpaulvaughan or @alexanderallen
 
 ##Installation
 ```bash
-$ npm install @johnpaulvaughan/itunes-music-library-tracks --save
+$ npm install @jcbrouwer/itunes-music-library-tracks --save
 ```
 
 ##Code Example
@@ -17,7 +19,7 @@ It throws an error if something goes wrong.
 
 ```javascript
 let getItunesTracks = require('itunes-music-library-tracks').getItunesTracks;
-let validXMLpath = 'C:\Users\JohnPaulVaughan\Music\iTunes\iTunes Music Library.xml'
+let validXMLpath = '/home/hans/Music/iTunes/iTunes Music Library.xml'
 
 let trackStream = getItunesTracks(validXMLpath)
 

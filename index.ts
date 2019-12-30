@@ -13,7 +13,6 @@ export function getItunesTracks(librarypath: fs.PathLike) {
 
 	let libraryID: string
 	let trackObj: any = {}
-	let isTrack: boolean = false
 	let line: any
 	let trackCount: number = 0
 
@@ -21,31 +20,25 @@ export function getItunesTracks(librarypath: fs.PathLike) {
 	let streamOut: Readable = new Readable
 	streamOut._read = function () { /* needed this stub to fix init issues */ }
 
-
 	streamIn = fs.createReadStream(librarypath)
 	streamIn.on('error', () => streamOut.emit("error", 'The file you selected does not exist'))
 	streamIn = byline.createStream(streamIn)
-
-
-
-
-	/*
-	if (!module.exports.validPath(librarypath)) {
-		streamOut.emit("error", 'Not a valid XML file')
-	}
-	*/
 
 	streamIn.on('readable', () => {
 		while (null !== (line = streamIn.read())) {
 			if (line.indexOf("<key>Library Persistent ID</key>") > -1) {
 				/* ADD A KEY/VALUE PROPERTY */
 				let iDString = String(line).match("<key>Library Persistent ID</key><string>(.*)</string>")
-				libraryID = iDString[1]
+				if (Boolean(iDString)) {
+					libraryID = iDString![1]
+				}
+				else {
+					throw Error("Library Persistent ID string is null!")
+				}
 			}
 			else if (line.indexOf("<dict>") > -1) {
 				/* START A NEW TRACK */
 				trackObj = {}
-				isTrack = true
 			} else if (line.indexOf("<key>") > -1) {
 				/* ADD A PROPERTY TO THE TRACK */
 				Object.assign(trackObj, module.exports.buildProperty(line));
@@ -56,7 +49,6 @@ export function getItunesTracks(librarypath: fs.PathLike) {
 					trackCount++
 					streamOut.push(JSON.stringify(trackObj))
 				}
-				isTrack = false
 			}
 		}
 	})
@@ -69,15 +61,12 @@ export function getItunesTracks(librarypath: fs.PathLike) {
 	})
 
 	streamIn.on('error', (err: any) => {
+		console.warn(err);
 		streamOut.emit("error", 'Error parsing iTunes XML')
 	})
 
 	return streamOut
 }
-
-
-
-
 
 /**
  * Validates that the file is an itunes XML file.
@@ -90,10 +79,6 @@ export function validPath(librarypath: any) {
 	if (extension != '.xml') return false
 	return true
 }
-
-
-
-
 
 /**
  * Ensures we have a music track and not a video or other non-music item.

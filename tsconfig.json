@@ -6,7 +6,13 @@
         "experimentalDecorators": true,
         "preserveConstEnums": true,
         "allowSyntheticDefaultImports": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "removeComments": false,
+        "strict": true,
+        "noErrorTruncation": true
     },
     "exclude": [
         "node_modules"
