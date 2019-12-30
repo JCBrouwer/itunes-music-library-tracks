@@ -7,12 +7,12 @@ I created my module using minimal dependencies so that it works without issue.
 
 This version works with stricter tslinting than versions by @johnpaulvaughan or @alexanderallen
 
-##Installation
+## Installation
 ```bash
 $ npm install @jcbrouwer/itunes-music-library-tracks --save
 ```
 
-##Code Example
+## Code Example
 Supply the module with a path to your xml file. It returns a node readStream of tracks. <br>
 It throws an error if something goes wrong.
 
