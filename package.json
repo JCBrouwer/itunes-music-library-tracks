@@ -1,6 +1,6 @@
 {
   "name": "@jcbrouwer/itunes-music-library-tracks",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Creates a stream of tracks from an iTunes Library XML file",
   "main": "index.js",
   "directories": {
